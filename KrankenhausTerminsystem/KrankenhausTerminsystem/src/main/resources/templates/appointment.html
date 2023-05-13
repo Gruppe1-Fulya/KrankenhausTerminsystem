@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Hospital Management System</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  
+  <a class="navbar-brand" href="#">Hospital Management System</a>
+
+  
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+ 
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/doctor}">Doctor Management</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/appointment}">Appointment Management</a>
+      </li>
+      <li class="nav-item" sec:authorize="isAuthenticated()">
+        <a class="nav-link" th:href="@{/logout}">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+	<div class ="container">
+		<div class = "row">
+			<h1> List of Appointments </h1>
+		</div>
+		
+		<div class = "row">
+			<div class = "col-lg-3">
+				<a th:href = "@{/appointment/new}" class = "btn btn-primary btn-sm mb-3"> Add Appointment</a>
+			</div>
+		</div>
+		<table class = "table table-striped table-bordered">
+			<thead class = "table-dark">
+				<tr>
+					<th> User Name</th>
+					<th> Doctor Name</th>
+					<th> Time(..:..) </th>
+					<th> Actions </th>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr th:each = "appointment: ${appointment}">
+					<td th:text = "${appointment.patientName}"></td>
+					<td th:text = "${appointment.doctorName}"></td>
+					<td th:text = "${appointment.time}"></td>
+					<td>
+						<a th:href = "@{/appointment/edit/{id}(id=${appointment.id})}"
+						 class = "btn btn-primary">Update</a>
+						
+						<a th:href = "@{/appointment/{id}(id=${appointment.id})}"
+						 class = "btn btn-danger">Delete</a>
+						 
+					</td>
+				</tr>
+			</tbody>
+		
+		</table>
+		
+	</div>
+</body>
+</html>
